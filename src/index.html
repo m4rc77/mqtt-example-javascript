@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MQTT Sensor Dash</title>
+    <script src="config.js"></script>
+	<script defer src="bundle.js"></script>
+    <style>
+        div {margin: 10px;}
+    </style>
+</head>
+<body>
+    <h2>MQTT Example JavaScript</h2>
+
+    <div>
+        <label id="info">No MQTT Messages received yet ...</label>
+    </div>
+
+    <div>
+        <label for="lux">Lux: </label><canvas style="min-height: 150px; min-width: 200px;" id="lux"></canvas>
+    </div>
+
+    <div>
+        <label for="angle">Angle: </label><canvas style="min-height: 200px; min-width: 200px;" id="angle"></canvas>
+    </div>
+
+    <div>
+        <label for="led-switch">LED Control: </label><span id="led-switch" onclick="onClickLedStateChange(this);">LED OFF</span>
+    </div>
+
+    <div>
+        <label for="temperature">Temperature: </label><span id="temperature">-</span>
+    </div>
+
+    <div>
+        <label for="humidity">Humidity: </label><span id="humidity">-</span>
+    </div>
+
+</body>
+</html>
+

@@ -1,0 +1,11 @@
+.DS_Store
+.idea/
+*.iml
+nbproject/
+
+build/
+dist/
+target/
+node_modules/
+
+src/config.js
