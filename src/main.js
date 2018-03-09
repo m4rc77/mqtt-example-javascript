@@ -2,6 +2,7 @@ require("file-loader?name=index.html!./index.html");
 // Add a file config js with the following content:
 // window.PREFIX = "YOUR_PREFIX";
 require("file-loader?name=config.js!./config.js");
+require("file-loader?name=arrow.png!./arrow.png");
 
 // according to https://github.com/mqtt-smarthome/mqtt-smarthome/blob/master/Architecture.md
 const TOPIC_LED_SET     = PREFIX + '/set/led';
@@ -15,6 +16,7 @@ var info        = document.getElementById("info");
 var led         = document.getElementById("led-switch");
 var temperature = document.getElementById("temperature");
 var humidity    = document.getElementById("humidity");
+var arrow       = document.getElementById("arrow");
 
 var mqtt    = require('mqtt');
 var gaugeJs = require('gaugeJS');
@@ -36,33 +38,11 @@ var optsLux = {
     colorStop: '#8FC0DA',    // just experiment with them
     strokeColor: '#E0E0E0'   // to see which ones work best for you
 };
-
-var optsAngle = {
-    angle: -0.5, // The span of the gauge arc
-    lineWidth: 0.03, // The line thickness
-    radiusScale: 1, // Relative radius
-    pointer: {
-        length: 0.42, // // Relative to gauge radius
-        strokeWidth: 0.031, // The thickness
-        color: '#000000' // Fill color
-    },
-    limitMax: true,     // If false, max value increases automatically if value > maxValue
-    limitMin: true,     // If true, the min value of the gauge will be fixed
-    colorStart: '#6FADCF',   // Colors
-    colorStop: '#8FC0DA',    // just experiment with them
-    strokeColor: '#E0E0E0'
-};
 var targetLux = document.getElementById('lux'); // your canvas element
 var gaugeLux = new gaugeJs.Gauge(targetLux).setOptions(optsLux); // create sexy gauge!
 gaugeLux.maxValue = 150; // set max gauge value
 gaugeLux.setMinValue(0);  // set min value
 gaugeLux.set(0);
-
-var targetAngle = document.getElementById('angle'); // your canvas element
-var gaugeAngle = new gaugeJs.Gauge(targetAngle).setOptions(optsAngle); // create sexy gauge!
-gaugeAngle.maxValue = 360; // set max gauge value
-gaugeAngle.setMinValue(0);  // set min value
-gaugeAngle.set(0);
 
 client.on('connect', function () {
     console.log("connect");
@@ -74,7 +54,7 @@ client.on('connect', function () {
 });
 
 client.on('message', function (topic, message) {
-    var msg = "Last MQTT Message: '" + message.toString() + "' on " + topic;
+    var msg = "'" + message.toString() + "' on " + topic;
     console.log(msg);
     info.innerHTML = msg;
 
@@ -93,7 +73,7 @@ client.on('message', function (topic, message) {
     }
 });
 
-window. onClickLedStateChange = function (item) {
+window.onClickLedStateChange = function (item) {
     led.style.color = 'red';
     if(led.innerHTML === "LED OFF") {
         console.log("Publish 1 to " + TOPIC_LED_SET);
@@ -111,7 +91,7 @@ function setLux(lux) {
 
 function  setAngle(angle) {
     console.log("angle: " + angle);
-    gaugeAngle.set(angle);
+    arrow.style.transform = "rotate("+angle+"deg)";
 }
 
 function setLedState(state) {
@@ -120,6 +100,8 @@ function setLedState(state) {
         led.innerHTML = "LED ON";
     } else if(state === 0) {
         led.innerHTML = "LED OFF";
+    } else if(state === -1) {
+        led.innerHTML = "LED OFFLINE";
     } else {
         console.log("WARN unexpected LED state " + state);
     }

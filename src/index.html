@@ -2,38 +2,45 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>MQTT Sensor Dash</title>
+	<title>MQTT Example JavaScript</title>
     <script src="config.js"></script>
 	<script defer src="bundle.js"></script>
     <style>
-        div {margin: 10px;}
+        div {
+            margin: 10px;
+            border-bottom: 1px solid;
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
     <h2>MQTT Example JavaScript</h2>
 
     <div>
-        <label id="info">No MQTT Messages received yet ...</label>
+        <label for="info">Last MQTT Message: </label><label id="info">-</label>
     </div>
 
     <div>
-        <label for="lux">Lux: </label><canvas style="min-height: 150px; min-width: 200px;" id="lux"></canvas>
+        <label for="arrow">Angle: </label>
+        <img src="arrow.png" style="max-height: 150px;" id="arrow" />
+        from JavaClient
     </div>
 
     <div>
-        <label for="angle">Angle: </label><canvas style="min-height: 200px; min-width: 200px;" id="angle"></canvas>
+        <label for="lux">Lux: </label>
+        <canvas style="max-height: 150px;" id="lux"></canvas>
+        from AndroidClient
     </div>
 
     <div>
-        <label for="led-switch">LED Control: </label><span id="led-switch" onclick="onClickLedStateChange(this);">LED OFF</span>
+        <label for="led-switch">LED Control: </label>
+        <span style="font-weight: bold" id="led-switch" onclick="onClickLedStateChange(this);">LED ?</span>
+        on ArduinoClient
     </div>
 
     <div>
-        <label for="temperature">Temperature: </label><span id="temperature">-</span>
-    </div>
-
-    <div>
-        <label for="humidity">Humidity: </label><span id="humidity">-</span>
+        <label for="temperature">Temperature: </label><span id="temperature">-</span> from ArduinoClient<br/><br>
+        <label for="humidity">Humidity: </label><span id="humidity">-</span> from ArduinoClient
     </div>
 
 </body>
