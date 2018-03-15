@@ -40,7 +40,7 @@ var optsLux = {
 };
 var targetLux = document.getElementById('lux'); // your canvas element
 var gaugeLux = new gaugeJs.Gauge(targetLux).setOptions(optsLux); // create sexy gauge!
-gaugeLux.maxValue = 150; // set max gauge value
+gaugeLux.maxValue = 500; // set max gauge value
 gaugeLux.setMinValue(0);  // set min value
 gaugeLux.set(0);
 
